@@ -5,19 +5,27 @@
 import { Hono } from "hono";
 import { AppDataSource } from "../../data-source";
 import { TDummy1 } from "../../entities/TDummy1";
+import { TMemo } from "../../entities/TMemo";
 
 const router = new Hono();
 
-router.get("/t_dummy1", (c) => {
-  /**
-   * http://localhost:3000/test1?ddd=33&a=뭐뭐뭐
-   * 데이터 이름이 ddd 라는놈의 값을 가져와라
-   */
-  let ddd = c?.req?.query("ddd");
-  let a = c?.req?.query("a");
-  const dummy1Repo = AppDataSource.getRepository(TDummy1);
-  let dummy1data = dummy1Repo.find({ take: 1000 });
-  return c.json({ dummy1data });
+router.get("/t_dummy1", async (c) => {
+  let result: { success: boolean; data: any; code: string; message: string } = {
+    success: true,
+    data: null,
+    code: "",
+    message: ``,
+  };
+  try {
+    const memoRepo = AppDataSource.getRepository(TMemo);
+    let memos =
+      (await memoRepo.find({ take: 1000, order: { createdDt: "DESC" } })) ?? [];
+    return c.json(result);
+  } catch (error: any) {
+    result.success = false;
+    result.message = error?.message ?? "";
+    return c.json(result);
+  }
 });
 
 router.post("/body", async (c) => {
