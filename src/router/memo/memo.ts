@@ -9,17 +9,18 @@ import { TMemo } from "../../entities/TMemo";
 
 const router = new Hono();
 
-router.get("/t_dummy1", async (c) => {
+router.get("/list", async (c) => {
   let result: { success: boolean; data: any; code: string; message: string } = {
     success: true,
-    data: null,
     code: "",
+    data: null,
     message: ``,
   };
   try {
     const memoRepo = AppDataSource.getRepository(TMemo);
     let memos =
       (await memoRepo.find({ take: 1000, order: { createdDt: "DESC" } })) ?? [];
+    result.data = memos;
     return c.json(result);
   } catch (error: any) {
     result.success = false;

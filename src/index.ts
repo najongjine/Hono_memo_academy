@@ -2,6 +2,7 @@
 // @hono/node-server 라는 모듈 덩어리에서
 import { serve } from "@hono/node-server";
 import { Hono } from "hono";
+import { cors } from "hono/cors";
 import { AppDataSource } from "./data-source";
 import * as dotenv from "dotenv";
 import test1Router from "./router/test1.js";
@@ -19,6 +20,15 @@ const envFile =
     ? ".env.production"
     : ".env.development";
 dotenv.config({ path: envFile });
+
+app.use(
+  "*",
+  cors({
+    origin: "*",
+    allowMethods: ["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"],
+    allowHeaders: ["*"],
+  })
+);
 
 /** DB 연결 */
 AppDataSource.initialize()
