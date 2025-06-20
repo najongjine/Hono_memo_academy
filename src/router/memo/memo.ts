@@ -39,6 +39,7 @@ router.post("/upsert", async (c) => {
   try {
     // const : 변경 불가능
     const body = await c?.req?.json();
+    const idp = Number(body?.idp ?? 0);
     let title = String(body?.title ?? "");
     title = title?.trim();
     let content = String(body?.content ?? "");
@@ -50,6 +51,14 @@ router.post("/upsert", async (c) => {
       return c.json(result);
     }
 
+    const memoRepo = AppDataSource.getRepository(TMemo);
+
+    /*
+    body 에서 준 idp(리엑트)와 실제 t_memo 테이블 데이터에 있는 idp를 비교해서
+    body idp 랑 완전히 똑같은 데이터 가져와라
+    못찾았으면, 새로운 데이터로 만들어라(idp=0, title="", content="")
+     */
+    let memo = (await memoRepo.findOne({ where: { idp: idp } })) ?? new TMemo();
     return c.json(result);
   } catch (error: any) {
     result.success = false;
