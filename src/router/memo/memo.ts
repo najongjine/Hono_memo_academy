@@ -29,18 +29,23 @@ router.get("/list", async (c) => {
   }
 });
 
-router.post("/body", async (c) => {
-  // const : 변경 불가능
-  const body = await c?.req?.json();
-  let name = body?.name ?? "";
-  const dummy1Repo = AppDataSource.getRepository(TDummy1);
-  // 메모리에다가 데이터 새로 만듬
-  let newDummy = new TDummy1();
-  newDummy.name = name;
-  // DB 에 진짜 저장하고난후, 진짜 db에 저장된 데이터 퉤 뱉어짐. 이걸 newDummy 에 다시 담아서
-  // 데이터 갱신시킴
-  newDummy = await dummy1Repo.save(newDummy);
-  return c.json({ newDummy });
+router.post("/upsert", async (c) => {
+  let result: { success: boolean; data: any; code: string; message: string } = {
+    success: true,
+    code: "",
+    data: null,
+    message: ``,
+  };
+  try {
+    // const : 변경 불가능
+    const body = await c?.req?.json();
+
+    return c.json(result);
+  } catch (error: any) {
+    result.success = false;
+    result.message = error?.message ?? "";
+    return c.json(result);
+  }
 });
 
 export default router;
