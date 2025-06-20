@@ -39,6 +39,16 @@ router.post("/upsert", async (c) => {
   try {
     // const : 변경 불가능
     const body = await c?.req?.json();
+    let title = String(body?.title ?? "");
+    title = title?.trim();
+    let content = String(body?.content ?? "");
+    content = content?.trim();
+
+    if (!title || !content) {
+      result.success = false;
+      result.message = "제목이나 내용을 입력해주세요";
+      return c.json(result);
+    }
 
     return c.json(result);
   } catch (error: any) {
