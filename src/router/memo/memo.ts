@@ -29,6 +29,26 @@ router.get("/list", async (c) => {
   }
 });
 
+router.get("/get_memo_by_idp", async (c) => {
+  let result: { success: boolean; data: any; code: string; message: string } = {
+    success: true,
+    code: "",
+    data: null,
+    message: ``,
+  };
+  try {
+    const idp = Number(c?.req?.query("idp"));
+    const memoRepo = AppDataSource.getRepository(TMemo);
+    let memos = await memoRepo.findOne({ where: { idp: idp } });
+    result.data = memos;
+    return c.json(result);
+  } catch (error: any) {
+    result.success = false;
+    result.message = error?.message ?? "";
+    return c.json(result);
+  }
+});
+
 router.post("/upsert", async (c) => {
   let result: { success: boolean; data: any; code: string; message: string } = {
     success: true,
@@ -59,6 +79,12 @@ router.post("/upsert", async (c) => {
     못찾았으면, 새로운 데이터로 만들어라(idp=0, title="", content="")
      */
     let memo = (await memoRepo.findOne({ where: { idp: idp } })) ?? new TMemo();
+
+    memo.title = title;
+    memo.content = content;
+
+    memo = await memoRepo.save(memo);
+    result.data = memo;
     return c.json(result);
   } catch (error: any) {
     result.success = false;
