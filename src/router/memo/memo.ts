@@ -93,4 +93,34 @@ router.post("/upsert", async (c) => {
   }
 });
 
+router.post("/delete", async (c) => {
+  let result: { success: boolean; data: any; code: string; message: string } = {
+    success: true,
+    code: "",
+    data: null,
+    message: ``,
+  };
+  try {
+    // const : 변경 불가능
+    const body = await c?.req?.json();
+    const idp = Number(body?.idp ?? 0);
+
+    const memoRepo = AppDataSource.getRepository(TMemo);
+
+    let memo = (await memoRepo.findOne({ where: { idp: idp } })) ?? new TMemo();
+    if (!memo?.idp) {
+      result.success = false;
+      result.message = `없는 데이터를 삭제하려고 합니다`;
+      return c.json(result);
+    }
+    await memoRepo.remove(memo);
+
+    return c.json(result);
+  } catch (error: any) {
+    result.success = false;
+    result.message = error?.message ?? "";
+    return c.json(result);
+  }
+});
+
 export default router;
