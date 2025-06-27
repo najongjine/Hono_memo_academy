@@ -123,6 +123,13 @@ router.post("/validate", async (c) => {
     // body 에서 받은 데이터들
     const reqs = await c?.req?.json();
     // reqs 에서 username 꺼내기
+    const token = String(reqs?.token ?? "");
+    const btoken = verifyToken(token);
+    if (!btoken) {
+      result.success = false;
+      result.message = `토근정보가 잘못됬습니다. 다시 로그인 해주세요`;
+      return c.json(result);
+    }
 
     return c.json(result);
   } catch (error: any) {
