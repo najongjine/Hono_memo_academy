@@ -112,6 +112,26 @@ router.post("/login", async (c) => {
   }
 });
 
+router.post("/validate", async (c) => {
+  let result: { success: boolean; data: any; code: string; message: string } = {
+    success: true,
+    data: null,
+    code: "",
+    message: ``,
+  };
+  try {
+    // body 에서 받은 데이터들
+    const reqs = await c?.req?.json();
+    // reqs 에서 username 꺼내기
+
+    return c.json(result);
+  } catch (error: any) {
+    result.success = false;
+    result.message = error?.message ?? "";
+    return c.json(result);
+  }
+});
+
 router.get("/info", async (c) => {
   let result: { success: boolean; data: any; code: string; message: string } = {
     success: true,
