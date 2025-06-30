@@ -6,6 +6,7 @@ import { Hono } from "hono";
 import { AppDataSource } from "../../data-source";
 import { TDummy1 } from "../../entities/TDummy1";
 import { TMemo } from "../../entities/TMemo";
+import { verifyToken } from "../../utils/utils";
 
 const router = new Hono();
 
@@ -57,6 +58,20 @@ router.post("/upsert", async (c) => {
     message: ``,
   };
   try {
+    let authHeader = c?.req?.header("Authorization") ?? "";
+    try {
+      authHeader = authHeader.split("Bearer ")[1];
+    } catch (error: any) {
+      authHeader = "";
+    }
+    console.log(`## authHeader:`, authHeader);
+    const tokenData: any = verifyToken(authHeader);
+    console.log(`## tokenData:`, tokenData);
+    if (!tokenData?.idp) {
+      result.success = false;
+      result.message = "로그인이 필요합니다";
+      return c.json(result);
+    }
     // const : 변경 불가능
     const body = await c?.req?.json();
     const idp = Number(body?.idp ?? 0);
