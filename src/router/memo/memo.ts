@@ -18,9 +18,27 @@ router.get("/list", async (c) => {
     message: ``,
   };
   try {
+    let authHeader = c?.req?.header("Authorization") ?? "";
+    try {
+      authHeader = authHeader.split("Bearer ")[1];
+    } catch (error: any) {
+      authHeader = "";
+    }
+    console.log(`## authHeader:`, authHeader);
+    const tokenData: any = verifyToken(authHeader);
+    console.log(`## tokenData:`, tokenData);
+    if (!tokenData?.idp) {
+      result.success = false;
+      result.message = "로그인이 필요합니다";
+      return c.json(result);
+    }
     const memoRepo = AppDataSource.getRepository(TMemo);
     let memos =
-      (await memoRepo.find({ take: 1000, order: { createdDt: "DESC" } })) ?? [];
+      (await memoRepo.find({
+        where: { userIdp: tokenData?.idp },
+        take: 1000,
+        order: { createdDt: "DESC" },
+      })) ?? [];
     result.data = memos;
     return c.json(result);
   } catch (error: any) {
@@ -97,6 +115,7 @@ router.post("/upsert", async (c) => {
 
     memo.title = title;
     memo.content = content;
+    memo.userIdp = tokenData?.idp;
 
     memo = await memoRepo.save(memo);
     result.data = memo;
