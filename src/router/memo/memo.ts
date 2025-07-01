@@ -4,9 +4,8 @@
 
 import { Hono } from "hono";
 import { AppDataSource } from "../../data-source";
-import { TDummy1 } from "../../entities/TDummy1";
-import { TMemo } from "../../entities/TMemo";
-import { verifyToken } from "../../utils/utils";
+import { TMemo } from "../../entities/TMemo.js";
+import { verifyToken } from "../../utils/utils.js";
 
 const router = new Hono();
 
