@@ -3,14 +3,14 @@
  */
 
 import { Hono } from "hono";
-import { AppDataSource } from "../../data-source";
-import { TUser } from "../../entities/TUser";
+import { AppDataSource } from "../../data-source.js";
+import { TUser } from "../../entities/TUser.js";
 import {
   comparePassword,
   generateToken,
   hashPassword,
   verifyToken,
-} from "../../utils/utils";
+} from "../../utils/utils.js";
 import { instanceToPlain } from "class-transformer";
 
 const router = new Hono();

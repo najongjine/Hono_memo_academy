@@ -1,8 +1,10 @@
+"use strict";
 /**
  * 이건 내가 만든 라우터. 이걸 서버가 사용하게 하려면 등록을 시켜줘야함
  */
-import { Hono } from "hono";
-const router = new Hono();
+Object.defineProperty(exports, "__esModule", { value: true });
+const hono_1 = require("hono");
+const router = new hono_1.Hono();
 router.get("/", (c) => {
     /**
      * http://localhost:3000/test1?ddd=33&a=뭐뭐뭐
@@ -47,4 +49,4 @@ router.get("/:id", (c) => {
     const id = c.req.param("id");
     return c.text(`👤 유저 상세: ${id}`);
 });
-export default router;
+exports.default = router;

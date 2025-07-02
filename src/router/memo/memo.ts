@@ -3,7 +3,7 @@
  */
 
 import { Hono } from "hono";
-import { AppDataSource } from "../../data-source";
+import { AppDataSource } from "../../data-source.js";
 import { TMemo } from "../../entities/TMemo.js";
 import { verifyToken } from "../../utils/utils.js";
 

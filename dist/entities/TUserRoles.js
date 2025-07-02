@@ -1,3 +1,4 @@
+"use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -7,37 +8,38 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var _a;
-import { Column, Entity, Index, JoinColumn, ManyToOne, PrimaryGeneratedColumn, } from "typeorm";
-import { TUser } from "./TUser";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.TUserRoles = void 0;
+const typeorm_1 = require("typeorm");
+const TUser_1 = require("./TUser");
 let TUserRoles = class TUserRoles {
     idp;
     roleName;
     userIdp;
 };
+exports.TUserRoles = TUserRoles;
 __decorate([
-    PrimaryGeneratedColumn({ type: "integer", name: "idp" }),
+    (0, typeorm_1.PrimaryGeneratedColumn)({ type: "integer", name: "idp" }),
     __metadata("design:type", Number)
 ], TUserRoles.prototype, "idp", void 0);
 __decorate([
-    Column("character varying", {
+    (0, typeorm_1.Column)("character varying", {
         name: "role_name",
         nullable: true,
         length: 50,
         default: () => "''''''",
     }),
-    __metadata("design:type", Object)
+    __metadata("design:type", String)
 ], TUserRoles.prototype, "roleName", void 0);
 __decorate([
-    ManyToOne(() => TUser, (tUser) => tUser.tUserRoles, {
+    (0, typeorm_1.ManyToOne)(() => TUser_1.TUser, (tUser) => tUser.tUserRoles, {
         onDelete: "CASCADE",
         onUpdate: "CASCADE",
     }),
-    JoinColumn([{ name: "user_idp", referencedColumnName: "idp" }]),
-    __metadata("design:type", typeof (_a = typeof TUser !== "undefined" && TUser) === "function" ? _a : Object)
+    (0, typeorm_1.JoinColumn)([{ name: "user_idp", referencedColumnName: "idp" }]),
+    __metadata("design:type", TUser_1.TUser)
 ], TUserRoles.prototype, "userIdp", void 0);
-TUserRoles = __decorate([
-    Index("t_user_roles_pkey", ["idp"], { unique: true }),
-    Entity("t_user_roles", { schema: "public" })
+exports.TUserRoles = TUserRoles = __decorate([
+    (0, typeorm_1.Index)("t_user_roles_pkey", ["idp"], { unique: true }),
+    (0, typeorm_1.Entity)("t_user_roles", { schema: "public" })
 ], TUserRoles);
-export { TUserRoles };

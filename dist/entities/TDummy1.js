@@ -1,3 +1,4 @@
+"use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -7,26 +8,28 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-import { Column, Entity, Index, PrimaryGeneratedColumn } from "typeorm";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.TDummy1 = void 0;
+const typeorm_1 = require("typeorm");
 let TDummy1 = class TDummy1 {
     idp;
     name;
 };
+exports.TDummy1 = TDummy1;
 __decorate([
-    PrimaryGeneratedColumn({ type: "integer", name: "idp" }),
+    (0, typeorm_1.PrimaryGeneratedColumn)({ type: "integer", name: "idp" }),
     __metadata("design:type", Number)
 ], TDummy1.prototype, "idp", void 0);
 __decorate([
-    Column("character varying", {
+    (0, typeorm_1.Column)("character varying", {
         name: "name",
         nullable: true,
         length: 300,
         default: () => "''''",
     }),
-    __metadata("design:type", Object)
+    __metadata("design:type", String)
 ], TDummy1.prototype, "name", void 0);
-TDummy1 = __decorate([
-    Index("untitled_table_215_pkey", ["idp"], { unique: true }),
-    Entity("t_dummy1", { schema: "public" })
+exports.TDummy1 = TDummy1 = __decorate([
+    (0, typeorm_1.Index)("untitled_table_215_pkey", ["idp"], { unique: true }),
+    (0, typeorm_1.Entity)("t_dummy1", { schema: "public" })
 ], TDummy1);
-export { TDummy1 };
