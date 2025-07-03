@@ -27,9 +27,9 @@ router.get("/list", async (c) => {
     const tokenData: any = verifyToken(authHeader);
     console.log(`## tokenData:`, tokenData);
     if (!tokenData?.idp) {
-      // result.success = false;
-      // result.message = "로그인이 필요합니다";
-      // return c.json(result);
+      result.success = false;
+      result.message = "로그인이 필요합니다";
+      return c.json(result);
     }
     const memoRepo = AppDataSource.getRepository(TMemo);
     let memos =
