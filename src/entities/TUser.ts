@@ -5,7 +5,7 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
 } from "typeorm";
-import { TUserRoles } from "./TUserRoles";
+import { TUserRoles } from "./TUserRoles.js";
 
 @Index("t_user_pkey", ["idp"], { unique: true })
 @Entity("t_user", { schema: "public" })
