@@ -3,7 +3,7 @@
 import { serve } from "@hono/node-server";
 import { Hono } from "hono";
 import { cors } from "hono/cors";
-import { AppDataSource } from "./data-source.js";
+import { AppDataSource } from "./data-source";
 import * as dotenv from "dotenv";
 import test1Router from "./router/test1.js";
 import dbtest from "./router/dbtest/dbtest.js";
