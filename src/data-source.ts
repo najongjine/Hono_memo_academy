@@ -3,10 +3,6 @@ import "reflect-metadata";
 import { DataSource } from "typeorm";
 import * as dotenv from "dotenv";
 import * as path from "path";
-import { TDummy1 } from "./entities/TDummy1";
-import { TMemo } from "./entities/TMemo";
-import { TUser } from "./entities/TUser";
-import { TUserRoles } from "./entities/TUserRoles";
 
 const envFile =
   process.env.NODE_ENV === "production"

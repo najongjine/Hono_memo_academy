@@ -4,7 +4,7 @@
 
 import { Hono } from "hono";
 import { AppDataSource } from "../../data-source.js";
-import { TMemo } from "../../entities/TMemo";
+import { TMemo } from "../../entities/TMemo.js";
 import { verifyToken } from "../../utils/utils.js";
 
 const router = new Hono();
