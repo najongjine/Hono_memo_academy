@@ -24,3 +24,10 @@ export const AppDataSource = new DataSource({
     rejectUnauthorized: false,
   },
 });
+
+export async function getDataSource() {
+  if (!AppDataSource.isInitialized) {
+    await AppDataSource.initialize();
+  }
+  return AppDataSource;
+}

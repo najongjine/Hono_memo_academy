@@ -11,7 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.TUser = void 0;
 const typeorm_1 = require("typeorm");
-const TUserRoles_js_1 = require("./TUserRoles.js");
+const TUserRoles_1 = require("./TUserRoles");
 let TUser = class TUser {
     idp;
     username;
@@ -42,7 +42,7 @@ __decorate([
     __metadata("design:type", String)
 ], TUser.prototype, "password", void 0);
 __decorate([
-    (0, typeorm_1.OneToMany)(() => TUserRoles_js_1.TUserRoles, (tUserRoles) => tUserRoles.userIdp),
+    (0, typeorm_1.OneToMany)(() => TUserRoles_1.TUserRoles, (tUserRoles) => tUserRoles.userIdp),
     __metadata("design:type", Array)
 ], TUser.prototype, "tUserRoles", void 0);
 exports.TUser = TUser = __decorate([

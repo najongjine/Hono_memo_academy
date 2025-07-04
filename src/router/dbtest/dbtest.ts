@@ -3,7 +3,7 @@
  */
 
 import { Hono } from "hono";
-import { AppDataSource } from "../../data-source.js";
+import { AppDataSource, getDataSource } from "../../data-source.js";
 import { TDummy1 } from "../../entities/TDummy1.js";
 
 const router = new Hono();
@@ -32,7 +32,8 @@ router.get("/t_dummy2", async (c) => {
   try {
     let ddd = c?.req?.query("ddd");
     let a = c?.req?.query("a");
-    let data = await AppDataSource.query(`
+    const ds = await getDataSource();
+    let data = await ds.query(`
     SELECT
     *
     FROM t_user

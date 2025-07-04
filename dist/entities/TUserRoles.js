@@ -11,7 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.TUserRoles = void 0;
 const typeorm_1 = require("typeorm");
-const TUser_js_1 = require("./TUser.js");
+const TUser_1 = require("./TUser");
 let TUserRoles = class TUserRoles {
     idp;
     roleName;
@@ -32,12 +32,12 @@ __decorate([
     __metadata("design:type", String)
 ], TUserRoles.prototype, "roleName", void 0);
 __decorate([
-    (0, typeorm_1.ManyToOne)(() => TUser_js_1.TUser, (tUser) => tUser.tUserRoles, {
+    (0, typeorm_1.ManyToOne)(() => TUser_1.TUser, (tUser) => tUser.tUserRoles, {
         onDelete: "CASCADE",
         onUpdate: "CASCADE",
     }),
     (0, typeorm_1.JoinColumn)([{ name: "user_idp", referencedColumnName: "idp" }]),
-    __metadata("design:type", TUser_js_1.TUser)
+    __metadata("design:type", TUser_1.TUser)
 ], TUserRoles.prototype, "userIdp", void 0);
 exports.TUserRoles = TUserRoles = __decorate([
     (0, typeorm_1.Index)("t_user_roles_pkey", ["idp"], { unique: true }),

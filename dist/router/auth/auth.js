@@ -63,11 +63,18 @@ router.post("/login", async (c) => {
         // reqs 에서 username 꺼내기
         let username = String(reqs?.username ?? "");
         let password = String(reqs?.password ?? "");
-        const userRepo = data_source_js_1.AppDataSource.getRepository(TUser_js_1.TUser);
-        let userData = (await userRepo.findOne({
-            where: { username: username },
-            relations: { tUserRoles: true },
-        })) ?? new TUser_js_1.TUser();
+        let userData = await data_source_js_1.AppDataSource.query(`
+      SELECT
+      *
+      FROM t_user as u
+      WHERE u.username=${username}
+      `);
+        try {
+            userData = userData[0];
+        }
+        catch (error) {
+            userData = null;
+        }
         // username 으로 테이블에서 유저 찾으라고 했는데, 없으면, 데이터가 채워지지 않은(idp = 0)
         // 객체로 생성된다
         // 이 뜻은 userData 에 idp 가 0이면

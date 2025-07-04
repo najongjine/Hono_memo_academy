@@ -34,6 +34,7 @@ var __importStar = (this && this.__importStar) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AppDataSource = void 0;
+exports.getDataSource = getDataSource;
 // src/data-source1.ts
 require("reflect-metadata");
 const typeorm_1 = require("typeorm");
@@ -57,3 +58,9 @@ exports.AppDataSource = new typeorm_1.DataSource({
         rejectUnauthorized: false,
     },
 });
+async function getDataSource() {
+    if (!exports.AppDataSource.isInitialized) {
+        await exports.AppDataSource.initialize();
+    }
+    return exports.AppDataSource;
+}
