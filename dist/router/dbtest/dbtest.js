@@ -18,6 +18,20 @@ router.get("/t_dummy1", async (c) => {
     let dummy1data = await dummy1Repo.find({ take: 1000 });
     return c.json({ dummy1data });
 });
+router.get("/t_dummy2", async (c) => {
+    /**
+     * http://localhost:3000/test1?ddd=33&a=뭐뭐뭐
+     * 데이터 이름이 ddd 라는놈의 값을 가져와라
+     */
+    let ddd = c?.req?.query("ddd");
+    let a = c?.req?.query("a");
+    const data = await data_source_js_1.AppDataSource.query(`
+    SELECT
+    *
+    FROM t_user
+    `);
+    return c.json({ data });
+});
 router.post("/body", async (c) => {
     // const : 변경 불가능
     const body = await c?.req?.json();
