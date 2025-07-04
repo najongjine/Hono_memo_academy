@@ -23,7 +23,7 @@ export const AppDataSource = new DataSource({
   database: process.env.DB_NAME,
   synchronize: false,
   logging: false,
-  entities: [TDummy1,TMemo,TUser,TUserRoles],
+  entities: [path.join(__dirname, "/entities/**/*.{js,ts}")],
   ssl: {
     rejectUnauthorized: false,
   },
