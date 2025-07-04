@@ -31,11 +31,17 @@ router.get("/t_dummy2", async (c) => {
     try {
         let ddd = c?.req?.query("ddd");
         let a = c?.req?.query("a");
-        const data = await data_source_js_1.AppDataSource.query(`
+        let data = await data_source_js_1.AppDataSource.query(`
     SELECT
     *
     FROM t_user
     `);
+        try {
+            data = data?.data[0];
+        }
+        catch (error) {
+            data = null;
+        }
         return c.json({ data });
     }
     catch (error) {
