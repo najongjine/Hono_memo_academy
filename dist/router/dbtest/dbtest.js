@@ -37,7 +37,7 @@ router.get("/t_dummy2", async (c) => {
     FROM t_user
     `);
         try {
-            data = data?.data[0];
+            data = data[0];
         }
         catch (error) {
             data = null;
