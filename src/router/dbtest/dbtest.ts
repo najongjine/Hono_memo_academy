@@ -19,8 +19,8 @@ router.get("/t_dummy1", async (c) => {
     const dummy1Repo = AppDataSource.getRepository(TDummy1);
     let dummy1data = await dummy1Repo.find({ take: 1000 });
     return c.json({ dummy1data });
-  } catch (error) {
-    return c.json({ error });
+  } catch (error: any) {
+    return c.json(error?.message ?? "");
   }
 });
 
@@ -44,8 +44,8 @@ router.get("/t_dummy2", async (c) => {
     }
 
     return c.json({ data });
-  } catch (error) {
-    return c.json({ error });
+  } catch (error: any) {
+    return c.json(error?.message ?? "");
   }
 });
 

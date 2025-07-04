@@ -20,7 +20,7 @@ router.get("/t_dummy1", async (c) => {
         return c.json({ dummy1data });
     }
     catch (error) {
-        return c.json({ error });
+        return c.json(error?.message ?? "");
     }
 });
 router.get("/t_dummy2", async (c) => {
@@ -45,7 +45,7 @@ router.get("/t_dummy2", async (c) => {
         return c.json({ data });
     }
     catch (error) {
-        return c.json({ error });
+        return c.json(error?.message ?? "");
     }
 });
 router.post("/body", async (c) => {
