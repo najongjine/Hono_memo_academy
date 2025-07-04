@@ -4,7 +4,7 @@
 
 import { Hono } from "hono";
 import { AppDataSource } from "../../data-source.js";
-import { TDummy1 } from "../../entities/TDummy1";
+import { TDummy1 } from "../../entities/TDummy1.js";
 
 const router = new Hono();
 
