@@ -4,7 +4,7 @@
  */
 Object.defineProperty(exports, "__esModule", { value: true });
 const hono_1 = require("hono");
-const data_source_1 = require("../../data-source");
+const data_source_js_1 = require("../../data-source.js");
 const TDummy1_1 = require("../../entities/TDummy1");
 const router = new hono_1.Hono();
 router.get("/t_dummy1", async (c) => {
@@ -14,7 +14,7 @@ router.get("/t_dummy1", async (c) => {
      */
     let ddd = c?.req?.query("ddd");
     let a = c?.req?.query("a");
-    const dummy1Repo = data_source_1.AppDataSource.getRepository(TDummy1_1.TDummy1);
+    const dummy1Repo = data_source_js_1.AppDataSource.getRepository(TDummy1_1.TDummy1);
     let dummy1data = await dummy1Repo.find({ take: 1000 });
     return c.json({ dummy1data });
 });
@@ -25,7 +25,7 @@ router.get("/t_dummy2", async (c) => {
      */
     let ddd = c?.req?.query("ddd");
     let a = c?.req?.query("a");
-    const data = await data_source_1.AppDataSource.query(`
+    const data = await data_source_js_1.AppDataSource.query(`
     SELECT
     *
     FROM t_user
@@ -36,7 +36,7 @@ router.post("/body", async (c) => {
     // const : 변경 불가능
     const body = await c?.req?.json();
     let name = body?.name ?? "";
-    const dummy1Repo = data_source_1.AppDataSource.getRepository(TDummy1_1.TDummy1);
+    const dummy1Repo = data_source_js_1.AppDataSource.getRepository(TDummy1_1.TDummy1);
     // 메모리에다가 데이터 새로 만듬
     let newDummy = new TDummy1_1.TDummy1();
     newDummy.name = name;

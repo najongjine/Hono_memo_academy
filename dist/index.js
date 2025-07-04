@@ -41,7 +41,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const node_server_1 = require("@hono/node-server");
 const hono_1 = require("hono");
 const cors_1 = require("hono/cors");
-const data_source_1 = require("./data-source");
+const data_source_js_1 = require("./data-source.js");
 const dotenv = __importStar(require("dotenv"));
 const test1_js_1 = __importDefault(require("./router/test1.js"));
 const dbtest_js_1 = __importDefault(require("./router/dbtest/dbtest.js"));
@@ -61,7 +61,7 @@ app.use("*", (0, cors_1.cors)({
     allowHeaders: ["*"],
 }));
 /** DB 연결 */
-data_source_1.AppDataSource.initialize()
+data_source_js_1.AppDataSource.initialize()
     .then(() => {
     console.log("Data Source has been initialized!");
 })

@@ -3,7 +3,7 @@
  */
 
 import { Hono } from "hono";
-import { AppDataSource } from "../../data-source";
+import { AppDataSource } from "../../data-source.js";
 import { TDummy1 } from "../../entities/TDummy1";
 
 const router = new Hono();
